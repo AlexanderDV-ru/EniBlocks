@@ -28,12 +28,12 @@ public class Chunks : MonoBehaviour
 					g.GetComponent<Chunk>().w=chunkWidth;
 					g.GetComponent<Chunk>().h=chunkHeight;
 					g.GetComponent<Chunk>().d=chunkDepth;
-					g.GetComponent<Chunk>().defBlock=y<2?new BlockType[]{Ids.BlockById("stone")}:(y==2?new BlockType[]{Ids.BlockById("dirt")}:new BlockType[]{Ids.BlockById("grass"),Ids.BlockById("air"),Ids.BlockById("air"),Ids.BlockById("air"),Ids.BlockById("air"),Ids.BlockById("air"),Ids.BlockById("air"),Ids.BlockById("air"),Ids.BlockById("air"),Ids.BlockById("air"),Ids.BlockById("air"),Ids.BlockById("air"),Ids.BlockById("air"),Ids.BlockById("air")});
+					g.GetComponent<Chunk>().defBlock=y<2?new string[]{"stone"}:(y==2?new string[]{"dirt"}:new string[]{"grass","air","air","air","air","air","air","air","air","air","air","air","air","air"});
 					g.name=x+" "+y+" "+z;
 					chunks[x,y,z]=g.GetComponent<Chunk>();
 				}
 	}
-	public BlockType ChangeBlock(int x,int y,int z,BlockType block)
+	public Block ChangeBlock(int x,int y,int z,Block block)
 	{
 		Chunk c =GetChunk((x-x%chunkWidth)/chunkWidth,(y-y%chunkHeight)/chunkHeight,(z-z%chunkDepth)/chunkDepth);
 		if(c)
@@ -43,9 +43,25 @@ public class Chunks : MonoBehaviour
 		}
 		return c?c.SetBlock(x%chunkWidth,y%chunkHeight,z%chunkDepth,block):null;
 	}
-	public BlockType ChangeBlock(Vector3 pos,BlockType block)
+	public Block ChangeBlock(int x,int y,int z,ItemType type)
+	{
+		return ChangeBlock(x,y,z,Block.create((BlockType)type));
+	}
+	public Block ChangeBlock(int x,int y,int z,string id)
+	{
+		return ChangeBlock(x,y,z,ItemType.ById(id));
+	}
+	public Block ChangeBlock(Vector3 pos,Block block)
 	{
 		return ChangeBlock((int)pos.x,(int)pos.y,(int)pos.z,block);
+	}
+	public Block ChangeBlock(Vector3 pos,ItemType type)
+	{
+		return ChangeBlock((int)pos.x,(int)pos.y,(int)pos.z,type);
+	}
+	public Block ChangeBlock(Vector3 pos,string id)
+	{
+		return ChangeBlock((int)pos.x,(int)pos.y,(int)pos.z,id);
 	}
 
 	public Chunk GetChunk(int x,int y,int z)
@@ -64,7 +80,7 @@ public class Chunks : MonoBehaviour
 			return false;
 		return true;
 	}
-	public BlockType GetBlock(int x,int y,int z)
+	public Block GetBlock(int x,int y,int z)
 	{
 		Chunk c =GetChunk((x-x%chunkWidth)/chunkWidth,(y-y%chunkHeight)/chunkHeight,(z-z%chunkDepth)/chunkDepth);
 		if(c)
@@ -74,7 +90,7 @@ public class Chunks : MonoBehaviour
 		}
 		return c?c.GetBlock(x%chunkWidth,y%chunkHeight,z%chunkDepth):null;
 	}
-	public BlockType GetBlock(Vector3 pos)
+	public Block GetBlock(Vector3 pos)
 	{
 		return GetBlock((int)pos.x,(int)pos.y,(int)pos.z);
 	}

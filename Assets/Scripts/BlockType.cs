@@ -34,16 +34,42 @@ public class BlockType : ItemType
 		{-1, 0, 0}, // x-
 		{+1, 0, 0}, // x+
 	};
+	public static BlockType[] blockTypes=new BlockType[]
+	{
+		new BlockType("air",		Subtype.Gas,	new Vector2[0,0],	true,	false),
+		new BlockType("stone",		Subtype.Solid,	texture(0,	0),		false,	false),
+		new BlockType("cobble",		Subtype.Solid,	texture(1,	0),		false,	false),
+		new BlockType("grass",		Subtype.Solid,	texture(2,	0),		false,	false),
+		new BlockType("_stone",		Subtype.Solid,	texture(3,	0),		false,	false),
+		new BlockType("wood",		Subtype.Solid,	texture(4,	0),		false,	false),
+		new BlockType("dirt",		Subtype.Solid,	texture(5,	0),		false,	false),
+		new BlockType("iron_ore",	Subtype.Solid,	texture(6,	0),		false,	false),
+		new BlockType("coal_ore",	Subtype.Solid,	texture(7,	0),		false,	false),
+		new BlockType("diamond_ore",Subtype.Solid,	texture(8,	0),		false,	false),
+		new BlockType("emerald_ore",Subtype.Solid,	texture(9,	0),		false,	false),
+		new BlockType("gold_ore",	Subtype.Solid,	texture(10,	0),		false,	false),
+		new BlockType("tin_ore",	Subtype.Solid,	texture(11,	0),		false,	false),
+		new BlockType("copper_ore",	Subtype.Solid,	texture(12,	0),		false,	false),
+		new BlockType("leaves",		Subtype.Solid,	texture(13,	0),		false,	false),
+	};
+	public static new BlockType ById(string id)
+	{
+		BlockType type=null;
+		for(int v=0;v<blockTypes.Length;v++)
+			if(blockTypes[v].id==id)
+				type= blockTypes[v];
+		return type;
+	}
 
-    public bool hasGravity;
+	public bool hasGravity;
 
-    public BlockType()  :   base()
-    {
-        this.hasGravity=false;
-    }
+	//protected BlockType()  :   base()
+	//{
+	//    this.hasGravity=false;
+	//}
 
-    public BlockType(string id, string type, Vector2[,] textures, bool transparent, bool hasGravity)  :   base(id,type,textures,transparent)
-    {
-        this.hasGravity = hasGravity;
-    }
+	protected BlockType(string id, Subtype subtype, Vector2[,] textures, bool transparent, bool hasGravity)  :   base(id,Type.Placeble,subtype,textures,transparent)
+	{
+		this.hasGravity = hasGravity;
+	}
 }

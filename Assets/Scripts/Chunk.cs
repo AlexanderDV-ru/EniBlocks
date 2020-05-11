@@ -7,21 +7,21 @@ public class Chunk : MonoBehaviour
 	//Options
 	public int w=12,h=12,d=12;
 	//World
-	BlockType[,,] allBlocks;
+	Block[,,] allBlocks;
 	bool[,,,] allFaces;
 	Vector3[] allVertices;
 	Vector2[] allUvs;
 	int[] allTriangles;
 
-	public BlockType SetBlock(int x,int y,int z,BlockType block)
+	public Block SetBlock(int x,int y,int z,Block block)
 	{
 		if(!testOnIn(x,y,z))
 			return null;
-		BlockType last=allBlocks[x,y,z];
+		Block last=allBlocks[x,y,z];
 		allBlocks[x,y,z]=block;
 		return last;
 	}
-	public BlockType GetBlock(int x,int y,int z)
+	public Block GetBlock(int x,int y,int z)
 	{
 		if(!testOnIn(x,y,z))
 			return null;
@@ -44,10 +44,10 @@ public class Chunk : MonoBehaviour
 		BlocksGen();
 		MeshUpdate(true);
 	}
-	public BlockType[] defBlock;
+	public string[] defBlock;
 	public void BlocksGen()
 	{
-		allBlocks=new BlockType[w,h,d];
+		allBlocks=new Block[w,h,d];
 		allFaces=new bool[w,h,d,BlockType.facesCount];
 		allVertices=new Vector3[w*h*d*BlockType.facesCount*BlockType.verticesInFace];
 		allUvs=new Vector2[w*h*d*BlockType.facesCount*BlockType.verticesInFace];
@@ -57,14 +57,20 @@ public class Chunk : MonoBehaviour
 		for(int x=0;x<w;x++)
 			for(int y=0;y<h;y++)
 				for(int z=0;z<d;z++)
-					SetBlock(x,y,z,defBlock[y%defBlock.Length]);
+				{
+					Block block=Block.create(defBlock[y%defBlock.Length]);
+					SetBlock(x,y,z,block);
+					GameObject go=new GameObject();
+					go.transform.parent=transform;
+					if(y==1)
+						block.inventory=go.AddComponent<Inventory>();
+				}
 	}
-	public int xTexturesCount=16,yTexturesCount=16,xTextureResolution=32,yTextureResolution=32;
 	public void FaceRecalc(int x,int y,int z,int f)
 	{
-		bool invisibleBlock=GetBlock(x,y,z)==null||GetBlock(x,y,z).textures.Length==0;
-		BlockType faceBlock=GetBlock(x+BlockType.directionsOfFaces[f,0],y+BlockType.directionsOfFaces[f,1],z+BlockType.directionsOfFaces[f,2]);
-		bool canBeSeen=faceBlock==null?true:faceBlock.transparent;
+		bool invisibleBlock=GetBlock(x,y,z)==null||GetBlock(x,y,z).type.textures.Length==0;
+		Block faceBlock=GetBlock(x+BlockType.directionsOfFaces[f,0],y+BlockType.directionsOfFaces[f,1],z+BlockType.directionsOfFaces[f,2]);
+		bool canBeSeen=faceBlock==null?true:faceBlock.type.transparent;
 		bool visible=!invisibleBlock&&canBeSeen;
 
 		int pos=((x*h+y)*d+z)*BlockType.facesCount+f;
@@ -72,7 +78,7 @@ public class Chunk : MonoBehaviour
 		{
 			allVertices[pos*BlockType.verticesInFace+v]=visible?new Vector3(x,y,z)+BlockType.vertices[BlockType.verticesIndexesOfFaces[f,v]]:new Vector3(0,0,0);
 			if(visible)
-				allUvs[pos*BlockType.verticesInFace+v]=new Vector2(GetBlock(x,y,z).textures[f,v].x/xTexturesCount,GetBlock(x,y,z).textures[f,v].y/yTexturesCount);
+				allUvs[pos*BlockType.verticesInFace+v]=new Vector2(GetBlock(x,y,z).type.textures[f,v].x/Ids.ins.xTexturesCount,GetBlock(x,y,z).type.textures[f,v].y/Ids.ins.yTexturesCount);
 
 			if(v==3)
 			{
@@ -132,7 +138,7 @@ public class Chunk : MonoBehaviour
 				x=x<0?0:(x>=w?w-1:x);
 				y=y<0?0:(y>=h?h-1:y);
 				z=z<0?0:(z>=d?d-1:z);
-				SetBlock(x,y,z,Ids.BlockById(collision.transform.GetComponent<Alchemical>().id));
+				SetBlock(x,y,z,Block.create(collision.transform.GetComponent<Alchemical>().id));
 				NearBlockRecalc(x,y,z);
 			}
 		doUpd=true;
@@ -145,8 +151,8 @@ public class Chunk : MonoBehaviour
 		string ids=args[3];
 		string xls=args[4],yls=args[5],zls=args[6];
 		string xos=args.Length>=8?args[7]:"0",yos=args.Length>=9?args[8]:"0",zos=args.Length>=10?args[9]:"0";
-		BlockType block=Ids.BlockById(ids);
-		if(block==null)
+		BlockType type=(BlockType)ItemType.ById(ids);
+		if(type==null)
 		{
 			Debug.Log(ids+" is not in ids");
 			return;
@@ -158,7 +164,7 @@ public class Chunk : MonoBehaviour
 		for(int x=xc+xo;x<xl+xo;x++)
 		for(int y=yc+yo;y<yl+yo;y++)
 		for(int z=zc+zo;z<zl+zo;z++)
-			Debug.Log(SetBlock(x,y,z,block));
+			Debug.Log(SetBlock(x,y,z,Block.create(ids)));
 	}
 	// Update is called once per frame
 	void Update()
