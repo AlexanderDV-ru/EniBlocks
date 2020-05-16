@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
+using UnityEngine;
 
 [System.Serializable]
 public struct EntityId
@@ -20,23 +20,23 @@ public struct EntityId
         this.textures=textures;
         this.faces=faces;
     }
-	public static EntityId[] fromConfig()
+	private static EntityId[] idsFromConfig(string path)
 	{
-		StreamReader reader = new StreamReader("Assets/Properties/ids.json");
+		StreamReader reader = new StreamReader(path);
         string[] cfg=reader.ReadToEnd().Replace("\r\n","\n").Replace("\r","\n").Split('\n');
         reader.Close();
-		List<EntityId> eids=new List<EntityId>();
+		List<EntityId> ids=new List<EntityId>();
 		for(int ln=0;ln<cfg.Length;ln++)
 			if(cfg[ln].Replace(" ","")!=""&&!cfg[ln].StartsWith("//"))
 			{
 				var v=JsonUtility.FromJson<EntityId>(cfg[ln]);
-				eids.Add(v);
+				ids.Add(v);
 				if(v.name=="air")
 					air=v;
 			}
-		return eids.ToArray();
+		return ids.ToArray();
 	}
-	public static EntityId[] ids=fromConfig();
+	public static readonly EntityId[] ids=idsFromConfig("Assets/Properties/ids.json");
 	public static EntityId ByName(string name)
 	{
 		foreach(EntityId id in ids)

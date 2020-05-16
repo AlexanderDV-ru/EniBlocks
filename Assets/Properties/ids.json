@@ -1,8 +1,8 @@
 {"name":"air",			"type":"block",	"subtype":"_gas",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":15}]}
 {"name":"dirt",			"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":14}]}
-{"name":"grass",		"type":"block",	"subtype":"solid",	"faces":[1,1,0,2,1,1],"textures":[{"x":0,	"y":14},{"x":1,	"y":15},{"x":1,	"y":14}]}
-{"name":"snow_grass",	"type":"block",	"subtype":"solid",	"faces":[1,1,0,2,1,1],"textures":[{"x":0,	"y":14},{"x":2,	"y":15},{"x":2,	"y":14}]}
-{"name":"mycelium",		"type":"block",	"subtype":"solid",	"faces":[1,1,0,2,1,1],"textures":[{"x":0,	"y":14},{"x":3,	"y":15},{"x":3,	"y":14}]}
+{"name":"grass",		"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":1,	"y":15},{"x":0,	"y":14},{"x":1,	"y":14}]}
+{"name":"snow_grass",	"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":2,	"y":15},{"x":0,	"y":14},{"x":2,	"y":14}]}
+{"name":"mycelium",		"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":3,	"y":15},{"x":0,	"y":14},{"x":3,	"y":14}]}
 {"name":"stone",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":4,	"y":15}]}
 {"name":"cobblestone",	"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":4,	"y":14}]}
 {"name":"bedrock",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":13,	"y":15}]}
@@ -43,6 +43,26 @@
 {"name":"ore_block_tin",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":6,	"y":1}]}
 {"name":"ore_block_copper",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":7,	"y":1}]}
 {"name":"ore_block_lazurite",	"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":8,	"y":1}]}
+
+{"name":"small_redstone",	"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":0}]}
+{"name":"small_iron",		"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":1,	"y":0}]}
+{"name":"small_coal",		"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":2,	"y":0}]}
+{"name":"small_diamond",	"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":3,	"y":0}]}
+{"name":"small_emerald",	"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":4,	"y":0}]}
+{"name":"small_gold",		"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":5,	"y":0}]}
+{"name":"small_tin",		"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":6,	"y":0}]}
+{"name":"small_copper",		"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":7,	"y":0}]}
+{"name":"small_lazurite",	"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":8,	"y":0}]}
+
+{"name":"normal_redstone",	"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":1}]}
+{"name":"normal_iron",		"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":1,	"y":1}]}
+{"name":"normal_coal",		"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":2,	"y":1}]}
+{"name":"normal_diamond",	"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":3,	"y":1}]}
+{"name":"normal_emerald",	"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":4,	"y":1}]}
+{"name":"normal_gold",		"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":5,	"y":1}]}
+{"name":"normal_tin",		"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":6,	"y":1}]}
+{"name":"normal_copper",	"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":7,	"y":1}]}
+{"name":"normal_lazurite",	"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":8,	"y":1}]}
 
 
 {"name":"tnt",	"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":9,	"y":10},{"x":8,	"y":10},{"x":7,	"y":10}]}
