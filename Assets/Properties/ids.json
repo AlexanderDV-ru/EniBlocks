@@ -1,4 +1,4 @@
-{"name":"air",			"type":"block",	"subtype":"_gas",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":15}]}
+{"name":"air",			"type":"block",	"subtype":"gas",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":15}],	"props":["transparent"],	"verts":[],"tris":[],"uvs":[]}
 {"name":"dirt",			"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":14}]}
 {"name":"grass",		"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":1,	"y":15},{"x":0,	"y":14},{"x":1,	"y":14}]}
 {"name":"snow_grass",	"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":2,	"y":15},{"x":0,	"y":14},{"x":2,	"y":14}]}
@@ -9,12 +9,16 @@
 {"name":"sand",			"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":14,	"y":15}]}
 {"name":"gravel",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":15,	"y":15}]}
 
+{"name":"wood",			"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":5,	"y":15}],	"props":["burning"]}
+{"name":"planks",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":6,	"y":15}],	"props":["burning"]}
+{"name":"leaves",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":7,	"y":15}],	"props":["burning","transparent"]}
+
 {"name":"0_2",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":2}]}
 {"name":"0_3",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":3}]}
 {"name":"0_4",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":4}]}
 {"name":"0_5",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":5}]}
 {"name":"0_6",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":6}]}
-{"name":"ladder",	"type":"block",	"subtype":"_solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":7}]}
+{"name":"ladder",	"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":7}],	"props":["transparent"]}
 {"name":"0_8",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":8}]}
 {"name":"0_9",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":9}]}
 {"name":"0_10",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":0,	"y":10}]}
@@ -65,12 +69,12 @@
 {"name":"normal_lazurite",	"type":"item",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":8,	"y":1}]}
 
 
-{"name":"tnt",	"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":9,	"y":10},{"x":8,	"y":10},{"x":7,	"y":10}]}
+{"name":"tnt",	"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":9,	"y":10},{"x":8,	"y":10},{"x":7,	"y":10}],	"props":["transparent"]}
 
-{"name":"chest",	"type":"block",	"subtype":"_solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":9,	"y":10},{"x":8,	"y":10},{"x":7,	"y":10}]}
+{"name":"chest",	"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":9,	"y":10},{"x":8,	"y":10},{"x":7,	"y":10}],	"props":["transparent"]}
 
-{"name":"ender_chest",	"type":"block",	"subtype":"_solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":9,	"y":10},{"x":8,	"y":10},{"x":7,	"y":10}]}
+{"name":"ender_chest",	"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":9,	"y":10},{"x":8,	"y":10},{"x":7,	"y":10}],	"props":["transparent"]}
 
-{"name":"water",	"type":"block",	"subtype":"_liquid",	"faces":[0,0,0,0,0,0],"textures":[{"x":4,	"y":3}]}
-{"name":"lava",		"type":"block",	"subtype":"_liquid",	"faces":[0,0,0,0,0,0],"textures":[{"x":5,	"y":3}]}
-{"name":"fire",		"type":"block",	"subtype":"_plasma",	"faces":[0,0,0,0,0,0],"textures":[{"x":6,	"y":3}]}
+{"name":"water",	"type":"block",	"subtype":"liquid",	"faces":[0,0,0,0,0,0],"textures":[{"x":4,	"y":3}],	"props":["transparent"]}
+{"name":"lava",		"type":"block",	"subtype":"liquid",	"faces":[0,0,0,0,0,0],"textures":[{"x":5,	"y":3}],	"props":["transparent"]}
+{"name":"fire",		"type":"block",	"subtype":"plasma",	"faces":[0,0,0,0,0,0],"textures":[{"x":6,	"y":3}],	"props":["transparent"]}

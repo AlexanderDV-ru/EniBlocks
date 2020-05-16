@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class World : MonoBehaviour
 {
-	private int xChunks=6,yChunks=6,zChunks=6;
-	private int xBlocks=12,yBlocks=12,zBlocks=12;
+	public int xChunks{get{return xChunksValue;}}
+	public int yChunks{get{return yChunksValue;}}
+	public int zChunks{get{return zChunksValue;}}
+	public int xBlocks{get{return xBlocksValue;}}
+	public int yBlocks{get{return yBlocksValue;}}
+	public int zBlocks{get{return zBlocksValue;}}
+	private int xChunksValue=6,	yChunksValue=6,	zChunksValue=6;
+	private int xBlocksValue=12,yBlocksValue=12,zBlocksValue=12;
 	private Chunk[,,] chunks;
 
 	public Material material;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -110,27 +111,51 @@ public class Chunk : MonoBehaviour
 	}
 	void UpdateMesh()
 	{
-		Vector3[] verts =   new Vector3[xBlocks*yBlocks*zBlocks*faces.Length*vertis.Length];
-		int[]   tris    =   new int[	xBlocks*yBlocks*zBlocks*faces.Length*trs.Length];
-		Vector2[] uvs   =   new Vector2[xBlocks*yBlocks*zBlocks*faces.Length*uvis.Length];
+		Vector3[] vertices =   new Vector3[xBlocks*yBlocks*zBlocks*faces.Length*vertis.Length];
+		int[]   triangles    =   new int[	xBlocks*yBlocks*zBlocks*faces.Length*trs.Length];
+		Vector2[] uv   =   new Vector2[xBlocks*yBlocks*zBlocks*faces.Length*uvis.Length];
+		int count=0;
 		for(int x=0;x<xBlocks;x++)
 			for(int y=0;y<yBlocks;y++)
 				for(int z=0;z<zBlocks;z++)
+				{
+					Vector3[] vs=blocks[x,y,z].id.verts!=null?blocks[x,y,z].id.verts:this.vs;
+					int[,] ts=blocks[x,y,z].id.tris!=null?blocks[x,y,z].id.tris:this.ts;
+					Vector2[] us=blocks[x,y,z].id.uvs!=null?blocks[x,y,z].id.uvs:this.us;
+					if(vs.Length==0||ts.Length==0||us.Length==0)
+						continue;
 					for(int fi=0;fi<faces.Length;fi++)
 						if(testBlockFace(x,y,z,fi))
 						{
-							int addr=((x*yBlocks+y)*zBlocks+z)*faces.Length+fi;
+							int addr=true?count:((x*yBlocks+y)*zBlocks+z)*faces.Length+fi;
 							int f=faces[fi];
 							for(int vi=0;vi<vertis.Length;vi++)
-								verts[addr*vertis.Length+vi]=new Vector3(x,y,z)+vs[ts[f,vertis[vi]]];
+								vertices[addr*vertis.Length+vi]=new Vector3(x,y,z)+vs[ts[f,vertis[vi]]];
 							for(int ti=0;ti<trs.Length;ti++)
-								tris[addr*trs.Length+ti]	=addr*vertis.Length+trs[ti];
+								triangles[addr*trs.Length+ti]	=addr*vertis.Length+trs[ti];
 							for(int ui=0;ui<uvis.Length;ui++)
-								uvs[addr*uvis.Length+ui]	=blocks[x,y,z].id.textures[blocks[x,y,z].id.faces[f]]+us[ui];
+								uv[addr*uvis.Length+ui]	=blocks[x,y,z].id.textures[blocks[x,y,z].id.faces[f]]+us[ui];
+							count++;
 						}
-		mesh.vertices=verts;
-		mesh.triangles=tris;
-		mesh.uv=uvs;
+				}
+		Array.Resize(ref vertices,count*vertis.Length);
+		Array.Resize(ref triangles,count*trs.Length);
+		Array.Resize(ref uv,count*uvis.Length);
+		//Vector3[] zipedVertices=new Vector3[count*vertis.Length];
+		//int[] zipedTriangles=new int[count*trs.Length];
+		//Vector2[] zipedUv=new Vector2[count*uvis.Length];
+		//for(var v=0;v<count;v++)
+		//{
+		//	for(int vi=0;vi<vertis.Length;vi++)
+		//		zipedVertices[v*vertis.Length+vi]=vertices[v*vertis.Length+vi];
+		//	for(int ti=0;ti<trs.Length;ti++)
+		//		zipedTriangles[v*trs.Length+ti]	=triangles[v*trs.Length+ti];
+		//	for(int ui=0;ui<uvis.Length;ui++)
+		//		zipedUv[v*uvis.Length+ui]	=uv[v*uvis.Length+ui]
+		//}
+		mesh.vertices=vertices;
+		mesh.triangles=triangles;
+		mesh.uv=uv;
 		mesh.RecalculateNormals();
 
 		meshFilter.mesh=mesh;

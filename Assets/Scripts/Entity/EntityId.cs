@@ -10,10 +10,28 @@ public struct EntityId
 	public string type;
 	public string subtype;
     public Vector2[] textures;
+	public string[] props;
+	public Vector3[] verts;
+	public int[,] tris;
+	public Vector2[] uvs;
     public int[] faces;
-	public bool transparent{get{return subtype[0]=='_';}}
+	public bool transparent{get {return hasProp("transparent");}}
+	public bool burning{get {return hasProp("burning");}}
+	public bool hasProp(string name)
+	{
+		if(props==null)
+			return false;
+		for(int v=0;v<props.Length;v++)
+			if(props[v]==name)
+				return true;
+		return false;
+	}
     public EntityId(string name,Vector2[] textures,int[] faces)
     {
+		this.verts=null;
+		this.tris=null;
+		this.uvs=null;
+		this.props=new string[]{};
 		this.name=name;
 		this.type="block";
 		this.subtype="solid";
