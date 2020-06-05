@@ -39,7 +39,7 @@ public class World : MonoBehaviour
 					SetBlock(new EntityLocation(x,y,z,0,0,0,Random.Range(0,2)>0,Random.Range(0,2)>0,Random.Range(0,2)>0), Entity.create(EntityId.ByName(y==0?"bedrock":(y<32?"stone":(y<36?"dirt":(y<37?"grass":"air"))))));
 	}
 
-	public Entity SetBlock(EntityLocation loc, Entity entity)
+	public Entity SetBlock(EntityLocation loc, Entity entity=null)
 	{
 		//Debug.Log(loc.x+" "+loc.y+" "+loc.z);
 		Chunk cur=chunks[(loc.x-loc.x%xBlocks)/xBlocks,(loc.y-loc.y%yBlocks)/yBlocks,(loc.z-loc.z%zBlocks)/zBlocks];

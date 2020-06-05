@@ -3,7 +3,7 @@
 {"name":"grass",		"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":1,	"y":15},{"x":0,	"y":14},{"x":1,	"y":14}]}
 {"name":"snow_grass",	"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":2,	"y":15},{"x":0,	"y":14},{"x":2,	"y":14}]}
 {"name":"mycelium",		"type":"block",	"subtype":"solid",	"faces":[0,0,1,2,0,0],"textures":[{"x":3,	"y":15},{"x":0,	"y":14},{"x":3,	"y":14}]}
-{"name":"stone",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":4,	"y":15}]}
+{"name":"stone",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":4,	"y":15}], "_drop":"cobblestone"}
 {"name":"cobblestone",	"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":4,	"y":14}]}
 {"name":"bedrock",		"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":13,	"y":15}]}
 {"name":"sand",			"type":"block",	"subtype":"solid",	"faces":[0,0,0,0,0,0],"textures":[{"x":14,	"y":15}]}
@@ -78,3 +78,5 @@
 {"name":"water",	"type":"block",	"subtype":"liquid",	"faces":[0,0,0,0,0,0],"textures":[{"x":4,	"y":3}],	"props":["transparent"]}
 {"name":"lava",		"type":"block",	"subtype":"liquid",	"faces":[0,0,0,0,0,0],"textures":[{"x":5,	"y":3}],	"props":["transparent"]}
 {"name":"fire",		"type":"block",	"subtype":"plasma",	"faces":[0,0,0,0,0,0],"textures":[{"x":6,	"y":3}],	"props":["transparent"]}
+
+{"name":"human",	"type":"mob",	"subtype":"?",	"faces":[0,0,0,0,0,0],"textures":[{"x":6,	"y":3}]}

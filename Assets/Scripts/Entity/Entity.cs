@@ -6,6 +6,7 @@ public class Entity
 {
 	public EntityLocation loc;
     public EntityId id;
+	public float hits;
 
 	protected Entity()
 	{
@@ -16,6 +17,7 @@ public class Entity
     {
         Entity e=new Entity();
         e.id=id;
+		e.hits=id.hits;
         return e;
     }
 }

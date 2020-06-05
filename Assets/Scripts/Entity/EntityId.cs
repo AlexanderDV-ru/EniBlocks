@@ -17,6 +17,9 @@ public struct EntityId
     public int[] faces;
 	public bool transparent{get {return hasProp("transparent");}}
 	public bool burning{get {return hasProp("burning");}}
+	public string _drop;
+	public string drop{get=>_drop!=null?_drop:name;}
+	public float hits;
 	public bool hasProp(string name)
 	{
 		if(props==null)
@@ -26,17 +29,20 @@ public struct EntityId
 				return true;
 		return false;
 	}
-    public EntityId(string name,Vector2[] textures,int[] faces)
+    public EntityId(string name,Vector2[] textures,int[] faces, Vector3[] verts=null,int[,] tris=null,Vector2[] uvs=null,string[] props=null,string type="block",string subtype="solid",string _drop=null,float hits=100)
     {
-		this.verts=null;
-		this.tris=null;
-		this.uvs=null;
-		this.props=new string[]{};
+		this.verts=verts;
+		this.tris=tris;
+		this.uvs=uvs;
+		this.props=props==null?new string[]{}:props;
 		this.name=name;
-		this.type="block";
-		this.subtype="solid";
+		this.type=type;
+		this.subtype=subtype;
         this.textures=textures;
         this.faces=faces;
+		this._drop=_drop==null?name:_drop;
+		this.hits=hits;
+		Debug.Log(name+" "+_drop+" "+this._drop);
     }
 	private static EntityId[] idsFromConfig(string path)
 	{

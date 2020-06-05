@@ -1,0 +1,108 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Slot : MonoBehaviour
+{
+/*	private Image _slotImage;
+	public Image slotImage{
+		get	=> _slotImage;
+		protected set {
+			_slotImage=value;
+			_updateVars();
+		}
+	}
+
+	private Image _itemImage;
+	public Image itemImage{
+		get	=> _itemImage;
+		protected set {
+			_itemImage=value;
+			_updateVars();
+		}
+	}
+
+	private Material _slotMat;
+	public Material slotMat{
+		get	=> _slotMat;
+		set{
+			_slotMat=value;
+			_updateVars();
+		}
+	}
+
+	private Material _itemMat;
+	public Material itemMat{
+		get	=> _itemMat;
+		set{
+			_itemMat=new Material(value);
+			_updateVars();
+		}
+	}
+
+	private string _itemId;
+	public string itemId{
+		get	=> _itemId;
+		set{
+			_itemId=value;
+			_updateVars();
+		}
+	}
+
+	private Vector2 _slotSize=Vector2.one;
+	public Vector2 slotSize{
+		get	=> _slotSize;
+		set{
+			_slotSize=value;
+			_updateVars();
+		}
+	}
+
+	private Vector2 _itemSizeMultiplier=Vector2.one;
+	public Vector2 itemSizeMultiplier{
+		get	=> _itemSizeMultiplier;
+		set{
+			_itemSizeMultiplier=value;
+			_updateVars();
+		}
+	}
+
+	private Vector2 _blockSizeMultiplier=Vector2.one;
+	public Vector2 blockSizeMultiplier{
+		get	=> _blockSizeMultiplier;
+		set{
+			_blockSizeMultiplier=value;
+			_updateVars();
+		}
+	}
+
+	private void _updateVars()
+	{
+		//if(_itemMat)
+		//	_itemMat.SetTextureOffset("_MainTex",EntityId.ByName(_itemId).textures[0]*_itemMat.GetTextureScale("_MainTex"));
+		//if(_itemImage)
+		//{
+		//	_itemImage.material=_itemMat;
+		//	_itemImage.rectTransform.sizeDelta=_slotSize*(EntityId.ByName(_itemId).type=="block"?_blockSizeMultiplier:_itemSizeMultiplier);
+		//}
+		//if(_slotImage)
+		//{
+		//	_slotImage.material=_slotMat;
+		//	_slotImage.rectTransform.sizeDelta=_slotSize;
+		//}
+	}*/
+	//public string itemId;
+	//private Image slotImage,itemImage;
+	//public Material slotMat,itemMat;
+	//public Vector2 slotSize,blockSizeMultiplier,itemSizeMultiplier;
+//
+	//void Start()
+	//{
+	//	slotImage=gameObject.AddComponent<Image>();
+	//	itemImage=new GameObject().AddComponent<Image>();
+	//	itemImage.gameObject.name=gameObject.name+"'s Item";
+	//	itemImage.transform.parent=transform;
+	//	itemImage.transform.localPosition=Vector3.zero;
+	//}
+}
