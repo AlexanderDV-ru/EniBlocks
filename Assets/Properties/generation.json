@@ -1,0 +1,11 @@
+{
+	"coef":1,
+	"levels":[
+		{"yMin":{"value":0},"idName":"bedrock"},
+		{"yMin":{"value":1},"idName":"stone"},
+		{"yMin":{"value":60},"idName":"dirt"},
+		{"yMin":{"value":63},"idName":"sand"},
+		{"yMin":{"value":64},"idName":"water"},
+		{"yMin":{"value":65},"idName":"air"}
+	]
+}
