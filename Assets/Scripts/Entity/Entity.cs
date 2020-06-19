@@ -89,14 +89,30 @@ public class Entity
 					switch (id.name)
 					{
 						case "tnt":
-							Debug.Log("boom");
-							container.fill(new Vector3(location.x, location.y, location.z), 3, new Entity().recreate(EntityId.ByName("air")),"sphere");
-							return true;
+							if(tool.name=="fire")
+								return ignite();
+							break;
 					}
 					break;
 			}
 		}
 		else Debug.Log("re");
+		return false;
+	}
+	public bool ignite()
+	{
+		if (typeof(I3dContainer).IsInstanceOfType(container))
+		{
+			I3dContainer container = (I3dContainer)this.container;
+			string idName=id.name;
+			container.set(location, new Entity().recreate(EntityId.ByName("air")));
+			switch (idName)
+			{
+				case "tnt":
+					container.fill(new Vector3(location.x, location.y, location.z), 3, new Entity().recreate(EntityId.ByName("air")),"sphere","ignite;set");
+					return true;
+			}
+		}
 		return false;
 	}
 }

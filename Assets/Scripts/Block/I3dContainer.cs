@@ -24,13 +24,13 @@ public interface I3dContainer : IVoxelContainer
 	int ySize { get; }
 	int zSize { get; }
 
-	bool fill(Vector3 point, Entity sample);
+	bool fill(Vector3 point, Entity sample, string cmds="set");
 
-	bool fill(Vector3 center, float radius, Entity sample, string shape = "cube");
+	bool fill(Vector3 center, float radius, Entity sample, string shape = "cube", string cmds="set");
 
-	bool fill(Vector3 first, Vector3 second, Entity sample, string shape = "cube");
+	bool fill(Vector3 first, Vector3 second, Entity sample, string shape = "cube", string cmds="set");
 
-	bool fillInside(Vector3 first, Vector3 second, Entity sample, string shape = "cube");
+	bool fillInside(Vector3 first, Vector3 second, Entity sample, string shape = "cube", string cmds="set");
 
-	bool fillArea(Vector3 first, Vector3 second, Entity sample, string shape = "cube");
+	bool fillArea(Vector3 first, Vector3 second, Entity sample, string shape = "cube", string cmds="set");
 }

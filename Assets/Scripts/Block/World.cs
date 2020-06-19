@@ -123,13 +123,13 @@ public class World : MonoBehaviour, I3dContainer
 					set(new EntityLocation(x, y, z), new Entity().recreate(EntityId.ByName(ws.blocks[(x * ySize + y) * zSize + z])));
 	}
 
-	public bool fill(Vector3 point, Entity sample)
+	public bool fill(Vector3 point, Entity sample, string cmds="set")
 	{
 		set(new EntityLocation((int)point.x, (int)point.y, (int)point.z), new Entity().recreate(sample));
 		return true;
 	}
 
-	public bool fill(Vector3 center, float radius, Entity sample, string shape = "cube")
+	public bool fill(Vector3 center, float radius, Entity sample, string shape = "cube", string cmds="set")
 	{
 		for (float x = center.x - radius; x <= center.x + radius; x++)
 			for (float y = center.y - radius; y <= center.y + radius; y++)
@@ -149,12 +149,20 @@ public class World : MonoBehaviour, I3dContainer
 							break;
 					}
 					if (isInFormula)
-						set(new EntityLocation((int)x, (int)y, (int)z), new Entity().recreate(sample));
+						foreach(string cmd in cmds.Split(';'))
+							switch (cmd) {
+								case "set":
+									set(new EntityLocation((int)x, (int)y, (int)z), new Entity().recreate(sample));
+									break;
+								case "ignite":
+									set(new EntityLocation((int)x, (int)y, (int)z)).ignite();
+									break;
+							}
 				}
 		return true;
 	}
 
-	public bool fill(Vector3 first, Vector3 second, Entity sample, string shape = "cube")
+	public bool fill(Vector3 first, Vector3 second, Entity sample, string shape = "cube", string cmds="set")
 	{
 		for (float x = first.x; x <= second.x; x++)
 			for (float y = first.y; y <= second.y; y++)
@@ -165,7 +173,7 @@ public class World : MonoBehaviour, I3dContainer
 
 
 
-	public bool fillInside(Vector3 first, Vector3 second, Entity sample, string shape = "cube") => fill(first + Vector3.one, second - Vector3.one, sample, shape);
+	public bool fillInside(Vector3 first, Vector3 second, Entity sample, string shape = "cube", string cmds="set") => fill(first + Vector3.one, second - Vector3.one, sample, shape, cmds);
 
-	public bool fillArea(Vector3 first, Vector3 second, Entity sample, string shape = "cube") => fill(first, first + second, sample, shape);
+	public bool fillArea(Vector3 first, Vector3 second, Entity sample, string shape = "cube", string cmds="set") => fill(first, first + second, sample, shape, cmds);
 }
