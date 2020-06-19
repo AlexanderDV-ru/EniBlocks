@@ -1,11 +1,26 @@
 {
+	"perlinNoise":true,
+	"perlinPlus":true,
+	"perlinCoefX":1,
+	"perlinCoefY":10,
+	"perlinCoefZ":1,
+	"perlinPlusX":0,
+	"perlinPlusY":0,
+	"perlinPlusZ":0,
 	"coef":1,
+	"levels2":[
+		{"idName":"bedrock","yMin":{"value":0},	"yMax":{"value":0,	"more":false},	"endFor":true,	"rawX":true,	"rawY":true,	"rawZ":true},
+		{"idName":"stone",	"yMin":{"value":1}},
+		{"idName":"dirt",	"yMin":{"value":30}},
+		{"idName":"sand",	"yMin":{"value":33}},
+		{"idName":"water",	"yMin":{"value":34}},
+		{"idName":"air",	"yMin":{"value":35}}
+	],
 	"levels":[
-		{"yMin":{"value":0},"idName":"bedrock"},
-		{"yMin":{"value":1},"idName":"stone"},
-		{"yMin":{"value":60},"idName":"dirt"},
-		{"yMin":{"value":63},"idName":"sand"},
-		{"yMin":{"value":64},"idName":"water"},
-		{"yMin":{"value":65},"idName":"air"}
+		{"idName":"bedrock","yMin":{"value":0},	"yMax":{"value":0,	"more":false},	"endFor":true,	"rawX":true,	"rawY":true,	"rawZ":true},
+		{"idName":"stone",	"yMin":{"value":1}},
+		{"idName":"dirt",	"yMin":{"value":30}},
+		{"idName":"grass",	"yMin":{"value":33}},
+		{"idName":"air",	"yMin":{"value":34}}
 	]
 }

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IEntityContainer
 {
-    Entity set(EntityLocation location, Entity entity);
+    Entity set(EntityLocation location, Entity entity=null);
 }

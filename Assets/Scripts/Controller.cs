@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class Controller : MonoBehaviour
 {
@@ -20,6 +23,10 @@ public class Controller : MonoBehaviour
 	public InventoryUi inventoryUi, hotbarUi;
 
 	public Camera cam;
+	public Transform cameraAnchor1, cameraAnchor2, cameraAnchor3;
+
+	public byte cameraAnchorNum = 1;
+
 	void Start()
 	{
 		cam.farClipPlane = mob.world.xChunks * mob.world.xBlocks - 4;
@@ -49,29 +56,35 @@ public class Controller : MonoBehaviour
 	void CommandFU()
 	{
 		bool cmd = false;
+		if (text.text.Split(' ').Length > 1)
+			if (text.text.Split(' ')[0] == "/load")
+			{
+				cmd = true;
+				mob.world.load("Assets/WorldSaves",text.text.Split(' ')[1]);
+			}
+		if (text.text.Split(' ').Length > 1)
+			if (text.text.Split(' ')[0] == "/save")
+			{
+				cmd = true;
+				mob.world.save("Assets/WorldSaves",text.text.Split(' ')[1]);
+			}
 		if (text.text.Split(' ').Length > 4)
 			if (text.text.Split(' ')[0] == "/setblock")
 			{
 				cmd = true;
-				mob.world.set(new EntityLocation(int.Parse(text.text.Split(' ')[1]), int.Parse(text.text.Split(' ')[2]), int.Parse(text.text.Split(' ')[3])), Entity.create(EntityId.ByName(text.text.Split(' ')[4])));
+				mob.world.fill(new Vector3(int.Parse(text.text.Split(' ')[1]), int.Parse(text.text.Split(' ')[2]), int.Parse(text.text.Split(' ')[3])), new Entity().recreate(EntityId.ByName(text.text.Split(' ')[4])));
 			}
 		if (text.text.Split(' ').Length > 7)
 			if (text.text.Split(' ')[0] == "/fill")
 			{
 				cmd = true;
-				for (int x = int.Parse(text.text.Split(' ')[1]); x < int.Parse(text.text.Split(' ')[5]); x++)
-					for (int y = int.Parse(text.text.Split(' ')[2]); y < int.Parse(text.text.Split(' ')[6]); y++)
-						for (int z = int.Parse(text.text.Split(' ')[3]); z < int.Parse(text.text.Split(' ')[7]); z++)
-							mob.world.set(new EntityLocation(x, y, z), Entity.create(EntityId.ByName(text.text.Split(' ')[4])));
+				mob.world.fill(new Vector3(int.Parse(text.text.Split(' ')[1]), int.Parse(text.text.Split(' ')[2]), int.Parse(text.text.Split(' ')[3])),new Vector3(int.Parse(text.text.Split(' ')[5]), int.Parse(text.text.Split(' ')[6]), int.Parse(text.text.Split(' ')[7])), new Entity().recreate(EntityId.ByName(text.text.Split(' ')[4])));
 			}
 		if (text.text.Split(' ').Length > 7)
 			if (text.text.Split(' ')[0] == "/fillarea")
 			{
 				cmd = true;
-				for (int x = int.Parse(text.text.Split(' ')[1]); x < int.Parse(text.text.Split(' ')[1]) + int.Parse(text.text.Split(' ')[5]); x++)
-					for (int y = int.Parse(text.text.Split(' ')[2]); y < int.Parse(text.text.Split(' ')[2]) + int.Parse(text.text.Split(' ')[6]); y++)
-						for (int z = int.Parse(text.text.Split(' ')[3]); z < int.Parse(text.text.Split(' ')[3]) + int.Parse(text.text.Split(' ')[7]); z++)
-							mob.world.set(new EntityLocation(x, y, z), Entity.create(EntityId.ByName(text.text.Split(' ')[4])));
+				mob.world.fillArea(new Vector3(int.Parse(text.text.Split(' ')[1]), int.Parse(text.text.Split(' ')[2]), int.Parse(text.text.Split(' ')[3])), new Vector3(int.Parse(text.text.Split(' ')[5]), int.Parse(text.text.Split(' ')[6]), int.Parse(text.text.Split(' ')[7])), new Entity().recreate(EntityId.ByName(text.text.Split(' ')[4])));
 			}
 		if (cmd)
 		{
@@ -126,6 +139,39 @@ public class Controller : MonoBehaviour
 		hidingGui.SetActive(gui);
 		showingGui.SetActive(!gui);
 	}
+	bool lastCam;
+	void CameraFU()
+	{
+		if (Input.GetAxis("CameraAnchor") > 0 && !lastCam)
+			switch(cameraAnchorNum)
+            {
+				case 1:
+					cameraAnchorNum = 2;
+					break;
+				case 2:
+					cameraAnchorNum = 3;
+					break;
+				default:
+					cameraAnchorNum = 1;
+					break;
+            }
+		lastCam = Input.GetAxis("CameraAnchor") > 0;
+
+		switch (cameraAnchorNum)
+		{
+			case 1:
+				cam.transform.parent = cameraAnchor1;
+				break;
+			case 2:
+				cam.transform.parent = cameraAnchor2;
+				break;
+			default:
+				cam.transform.parent = cameraAnchor3;
+				break;
+		}
+		cam.transform.position = cam.transform.parent.position;
+		cam.transform.rotation = cam.transform.parent.rotation;
+	}
 	public void ToHotbar()
 	{
 		hotbarUi.inventory.items[hotbarUi.inventory.selected] = craftResult.text.Split(Craft.spl0)[0];
@@ -135,6 +181,7 @@ public class Controller : MonoBehaviour
 	void FixedUpdate()
 	{
 		GuiFU();
+		CameraFU();
 		if (gui)
 		{
 			CommandFU();

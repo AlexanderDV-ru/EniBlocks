@@ -27,7 +27,7 @@ public class Chunk : MonoBehaviour
 		for (int x = 0; x < xBlocks; x++)
 			for (int y = 0; y < yBlocks; y++)
 				for (int z = 0; z < zBlocks; z++)
-					blocks[x, y, z] = Entity.create(EntityId.ByName("air"));
+					blocks[x, y, z] = new Entity().recreate(EntityId.ByName("air"));
 	}
 
 	void Start()

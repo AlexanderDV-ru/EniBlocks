@@ -17,24 +17,29 @@ public class Entity
 	public EntityId id;
 	public float hits;
 
-	protected Entity()
+	public Entity()
 	{
 
 	}
 
-	public static Entity create(EntityId id)
-	{
-		Entity e = new Entity();
-		e.recreate(id);
-		return e;
-	}
+	public Entity recreate(string idName) => this.recreate(EntityId.ByName(idName));
 
-	public void recreate(EntityId id)
+	public Entity recreate(EntityId id)
 	{
 		this.id = id;
 		this.hits = id.hits;
 		if (container != null)
 			paste(container, location);
+		return this;
+	}
+
+	public Entity recreate(Entity sample)
+	{
+		this.id = sample.id;
+		this.hits = sample.hits;
+		if (container != null)
+			paste(container, location);
+		return this;
 	}
 
 	public void paste(IEntityContainer container, EntityLocation location)
@@ -56,26 +61,42 @@ public class Entity
 		container.set(location, this);
 	}
 
-	public bool interact(EntityId tool, string touchmode, string minemode, float breakSpeed, Inventory hotbar, Permissions perms)
+	public bool interact(Mob mob, string type)
 	{
-		hits -= minemode == "momental" ? hits : Time.fixedDeltaTime * breakSpeed;
-		if (hits <= 0)
+		EntityId tool = EntityId.ByName(mob.hotbar.items[mob.hotbar.selected]);
+		if (typeof(I3dContainer).IsInstanceOfType(container))
 		{
-			if (!perms.canIntoNothing)
+			I3dContainer container = (I3dContainer)this.container;
+			switch (type)
 			{
-				if (touchmode == "silk")
-					hotbar.addItem(id.name);
-				if (touchmode == "mine")
-					hotbar.addItem(id.drop);
+				case "mine":
+					hits -= mob.minemode == "momental" ? hits : Time.fixedDeltaTime * mob.breakSpeed;
+					if (hits <= 0)
+					{
+						if (!mob.perms.canIntoNothing)
+						{
+							if (mob.touchmode == "silk")
+								mob.hotbar.addItem(id.name);
+							if (mob.touchmode == "mine")
+								mob.hotbar.addItem(id.drop);
+						}
+						this.recreate(EntityId.ByName("air"));
+						return true;
+					}
+					break;
+				default:
+					Debug.Log("interact");
+					switch (id.name)
+					{
+						case "tnt":
+							Debug.Log("boom");
+							container.fill(new Vector3(location.x, location.y, location.z), 3, new Entity().recreate(EntityId.ByName("air")),"sphere");
+							return true;
+					}
+					break;
 			}
-			this.recreate(EntityId.ByName("air"));
-			return true;
 		}
-		return false;
-	}
-
-	public bool interact(EntityId tool)
-	{
+		else Debug.Log("re");
 		return false;
 	}
 }

@@ -23,7 +23,7 @@ public class Mob : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		entity = Entity.create(EntityId.ByName(idName));
+		entity = new Entity().recreate(EntityId.ByName(idName));
 	}
 
 	// Update is called once per frame
@@ -100,15 +100,15 @@ public class Mob : MonoBehaviour
 		if (haveInteract)
 		{
 			if (breakControl > 0)
-				if (perms.canBreak && world.set(new EntityLocation((int)breakSelector.x, (int)breakSelector.y, (int)breakSelector.z)).interact(EntityId.ByName(hotbar.items[hotbar.selected]), touchmode, minemode, breakSpeed, hotbar,perms))
+				if (perms.canBreak && world.set(new EntityLocation((int)breakSelector.x, (int)breakSelector.y, (int)breakSelector.z)).interact(this,"mine"))
 					haveInteract = false;
 
 			if (placeControl > 0)
-				if (perms.canInteract && world.set(new EntityLocation((int)placeSelector.x, (int)placeSelector.y, (int)placeSelector.z)).interact(EntityId.ByName(hotbar.items[hotbar.selected])))
+				if (perms.canInteract && world.set(new EntityLocation((int)breakSelector.x, (int)breakSelector.y, (int)breakSelector.z)).interact(this,"interfact"))
 					haveInteract = false;
-				else if (perms.canPlace)
+				else if (perms.canPlace&& EntityId.ByName(hotbar.items[hotbar.selected]).name!="air")
 				{
-					world.set(new EntityLocation((int)placeSelector.x, (int)placeSelector.y, (int)placeSelector.z), Entity.create(EntityId.ByName(hotbar.items[hotbar.selected])));
+					world.set(new EntityLocation((int)placeSelector.x, (int)placeSelector.y, (int)placeSelector.z), new Entity().recreate(EntityId.ByName(hotbar.items[hotbar.selected])));
 					haveInteract = false;
 				}
 
